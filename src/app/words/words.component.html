@@ -1,0 +1,47 @@
+<div class="container">
+	<div class="row">
+		<h1 class="h2">Search For Words!</h1>
+	</div>
+	<div class="row">
+		<div class="input-group input-group-lg mb-2">
+		  <div class="input-group-prepend">
+		    <span class="input-group-text" id="inputGroup-sizing-lg">Term</span>
+		  </div>
+		  <input #termSearch id="term-search" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" (keyup)="search(termSearch.value)"
+		  value="{{urlTerm}}">
+		</div>
+	</div>
+	<!-- <div class="row">
+		<div class="input-group input-group-lg mb-2">
+		  <div class="input-group-prepend">
+		    <span class="input-group-text" id="inputGroup-sizing-lg">Category</span>
+		  </div>
+		  <input #categorySearch id="category-search" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" (keyup)="search(termSearch.value, categorySearch.value)">
+		</div>
+	</div> -->
+	<hr/>
+	<div class="row mb-3">
+		<div *ngFor="let word of words$ | async" class="col-md-6 p-1" >
+			<div class="card">
+			  <div class="card-header h4">
+			  	<a routerLink="/words/{{word.id}}">
+			    	{{word.term}}
+				</a>
+			  </div>
+			  <div class="card-body">
+			    <blockquote class="blockquote mb-0">
+			      <p>{{word.definition}}</p>
+			      <div class="blockquote-footer">by {{word.user.name}} on<i> {{word.dateSubmitted.date | date: 'full'}}</i></div>
+			    </blockquote>
+			  </div>
+			  <div class="card-footer">
+			  	<span *ngFor="let category of word.categories">
+			  		{{category}}
+			  	</span>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

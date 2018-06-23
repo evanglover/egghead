@@ -1,0 +1,53 @@
+"C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath d:\mongodb\data
+ng serve
+php -S 0.0.0.0:8080 -t public/
+
+
+Docker Machine IP is http://192.168.99.100:4000/
+https://docs.docker.com/get-started/part3/#run-your-new-load-balanced-app
+
+https://packagist.org/packages/alcaeus/mongo-php-adapter
+https://packagist.org/packages/doctrine/mongodb-odm
+
+TODO: Add Classes for:
+- Card
+- Deck 
+    - Deck data within User;
+        - decks
+        - deckLikes
+        - deckDislikes
+        - deckFavorites
+
+
+class Deck {
+    public $id;
+    public $user; // of class User
+    public $dateCreated
+    public $title;
+    public $cards; // array of class Card
+
+    public $isPublic;
+    public $dateSubmitted;
+    public $upvotes;
+    public $downvotes;
+
+    public function __construct() {
+
+    }
+}
+
+class Card {
+    public $term;
+
+    public function __construct($_term) {
+        $this->term = $_term;
+    }
+
+    public function changeTerm($_term){
+        $this->term = $_term;
+    }
+}
+
+ADD User Functionality for:
+    - email / social
+    - password +encrypted+

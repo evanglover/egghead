@@ -1,0 +1,14 @@
+<h1>api-checker</h1>
+<ul>
+	<li *ngFor="let word of apiCheck">
+		<h3>{{word.term}}</h3>
+		<ul>
+			<li *ngFor="let definition of word.definitions">
+				<p>{{definition.term}}</p>
+				<p>Submitted By: {{definition.user.name}} on {{definition.dateSubmitted.date | date:'full'}}
+			</li>
+		</ul>
+	</li>
+</ul>
+
+

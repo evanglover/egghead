@@ -1,0 +1,83 @@
+<form class="jumbotron" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <h1 class="display-4">Register New User!</h1>
+  <div class="row">
+	  <div class="form-group col-md-6">
+	      <label class="center-block">* Email:</label>
+	        <input class="form-control" formControlName="email" required>
+	        <!-- validator messages -->
+	        <div *ngIf="email.invalid && (email.dirty || email.touched)"
+			     class="alert alert-danger">
+
+			  <div *ngIf="email.errors.required">
+			    Email is required
+			  </div>
+			  <div *ngIf="email.errors.email">
+			    Invalid email
+			  </div>
+			</div>
+	  </div>
+	  <div class="form-group col-md-6">
+	      <label class="center-block">* Nickname:</label>
+	        <input class="form-control" formControlName="nickname" required>
+	        <!-- validator messages -->
+	        <div *ngIf="nickname.invalid && (nickname.dirty || nickname.touched)"
+			     class="alert alert-danger">
+
+			  <div *ngIf="nickname.errors.required">
+			    Nickname is required
+			  </div>
+			</div>
+	  </div>
+	  <div class="form-group col-md-6">
+		  <label class="center-block">* Faction:</label>
+		    <select class="form-control" formControlName="faction" required>
+		      <option style="display:none" disabled selected value> -- select an option -- </option>
+		      <option *ngFor="let faction of factions" [value]="faction">{{faction}}</option>
+		    </select>
+		    <!-- validator messages -->
+	        <div *ngIf="faction.invalid && (faction.dirty || faction.touched)"
+			     class="alert alert-danger">
+
+			  <div *ngIf="faction.errors.required">
+			     Faction is required
+			  </div>
+			</div>
+	  </div>
+	  <div class="form-group col-md-6">
+	      <label class="center-block">Description:</label>
+	      <textarea class="form-control" formControlName="description" rows="3"></textarea>
+	  </div>
+	  <div class="form-group col-md-6">
+	      <label class="center-block">* Password:</label>
+	        <input class="form-control" formControlName="password" required>
+	        <!-- validator messages -->
+	        <div *ngIf="password.invalid && (password.dirty || password.touched)"
+			     class="alert alert-danger">
+
+			  <div *ngIf="password.errors.required">
+			     Password is required
+			  </div>
+			</div>
+	  </div>
+	  <div class="form-group col-md-6">
+	      <label class="center-block">* Verify Password:</label>
+	        <input class="form-control" formControlName="verifyPassword" required>
+	        <!-- validator messages -->
+	        <div *ngIf="verifyPassword.invalid && (verifyPassword.dirty || verifyPassword.touched)"
+			     class="alert alert-danger">
+
+			  <div *ngIf="verifyPassword.errors.required">
+			     Verify Password is required
+			  </div>
+			</div>
+	  </div>
+	</div>
+  <div>
+    <button type="submit"
+            [disabled]="registerForm.pristine" class="btn btn-success">Submit</button> &nbsp;
+    <button type="button" (click)="revert()"
+            [disabled]="registerForm.pristine" class="btn btn-danger">Revert</button>
+  </div>
+  <div>* denotes a required field</div>
+  <p>Form status: {{ registerForm.status | json }}</p>
+</form>

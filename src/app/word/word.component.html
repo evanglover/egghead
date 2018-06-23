@@ -1,0 +1,26 @@
+<div class="jumbotron">
+	<div *ngIf="found;else not_found">
+		<div *ngIf="word;else searching">
+			<h1 class="display-4">{{word.term}}</h1>
+			<p class="lead">{{word.definition}}</p>
+			
+			<blockquote class="blockquote mb-0">
+			    <p></p>
+			    <div class="blockquote-footer">by {{word.user.name}} on<i> {{word.dateSubmitted.date | date: 'full'}}</i></div>
+			</blockquote>
+			<hr class="my-4">
+			<div>
+			  	<span *ngFor="let category of word.categories">
+			  		{{category}}
+			  	</span>
+			</div>
+		</div>
+		<ng-template #searching>
+			<h1 class="display-4">Searching<i class="fa fa-spinner fa-spin"></i></h1>
+		</ng-template>
+	</div>
+	<ng-template #not_found>
+		<h1 class="display-4">No word found!</h1>
+		<p class="lead"><a routerLink="/words">Search for a word to find one!</a></p>
+	</ng-template>
+</div>
