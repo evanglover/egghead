@@ -93,8 +93,11 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/api/words', App\Handler\Word\WordSearchHandler::class, 'words');
     $app->get('/api/word', App\Handler\Word\WordGetHandler::class, 'word');
     // User
+    $app->get('/api/user/factions', App\Handler\User\UserFactionsHandler::class, 'user.factions');
+    $app->put('/api/user/checkEmail', App\Handler\User\UserCheckEmailHandler::class, 'user.checkEmail');
+    $app->put('/api/user/checkNickname', App\Handler\User\UserNicknameHandler::class, 'user.checkNickname');
     $app->post('/api/register', App\Handler\User\UserRegisterHandler::class, 'user.register');
     $app->put('/api/login', App\Handler\User\UserLoginHandler::class, 'user.login');
-    $app->get('/api/user/factions', App\Handler\User\UserFactionsHandler::class, 'user.factions');
+
 
 };

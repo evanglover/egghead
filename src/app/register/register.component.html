@@ -14,6 +14,9 @@
 			  <div *ngIf="email.errors.email">
 			    Invalid email
 			  </div>
+			  <div *ngIf="email.errors.invalidEmail">
+			    Server: Invalid email
+			  </div>
 			</div>
 	  </div>
 	  <div class="form-group col-md-6">
@@ -49,7 +52,7 @@
 	  </div>
 	  <div class="form-group col-md-6">
 	      <label class="center-block">* Password:</label>
-	        <input class="form-control" formControlName="password" required>
+	        <input type="password" class="form-control" formControlName="password" required>
 	        <!-- validator messages -->
 	        <div *ngIf="password.invalid && (password.dirty || password.touched)"
 			     class="alert alert-danger">
@@ -61,20 +64,23 @@
 	  </div>
 	  <div class="form-group col-md-6">
 	      <label class="center-block">* Verify Password:</label>
-	        <input class="form-control" formControlName="verifyPassword" required>
+	        <input type="password" class="form-control" formControlName="verifyPassword" required>
 	        <!-- validator messages -->
 	        <div *ngIf="verifyPassword.invalid && (verifyPassword.dirty || verifyPassword.touched)"
 			     class="alert alert-danger">
-
 			  <div *ngIf="verifyPassword.errors.required">
 			     Verify Password is required
 			  </div>
+			  <div *ngIf="verifyPassword.errors.mismatch">
+			     Passwords do not match
+			  </div>
 			</div>
+
 	  </div>
 	</div>
   <div>
     <button type="submit"
-            [disabled]="registerForm.pristine" class="btn btn-success">Submit</button> &nbsp;
+            [disabled]="registerForm.invalid" class="btn btn-success">Submit</button> &nbsp;
     <button type="button" (click)="revert()"
             [disabled]="registerForm.pristine" class="btn btn-danger">Revert</button>
   </div>

@@ -61,7 +61,7 @@ class User {
     public function getPassword(): ?string { return $this->password; }
     public function setPassword(string $_password): void { $this->password = $_password; }
 
-    public function getNicknames(): string { return $this->nickname; }
+    public function getNickname(): string { return $this->nickname; }
     public function setNickname($_nickname) { $this->nickname = $_nickname; }
 
     public function getFactions(): array { return self::FACTIONS; }
@@ -77,18 +77,12 @@ class User {
     public function getToken(): ?string { return $this->token; }
     public function setToken(string $_token): void { $this->token = $_token; }
 
-    
-
     public function getDateCreated() { return $this->dateCreated; }
     public function setDateCreated(DateTime $_dateCreated) { $this->dateCreated = $_dateCreated; }
-
-    
 
     public function getScore(): int { return $this->score; }
     public function incScore(): void { $this->score++; }
     public function decScore(): void { $this->score--; }
-
-    
 
     public function getWords(): Collection { return $this->words; }
     public function addWord(Word $_word): void { $this->words[] = $_word; }

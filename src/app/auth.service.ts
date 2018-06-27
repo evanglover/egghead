@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -57,6 +57,18 @@ export class AuthService {
 
   getFactions(): Observable<any>{
   	return this.http.get<any>(`${this.apiUrl}/user/factions`);
+  }
+
+  checkEmail(email: string): Observable<any>{
+    var formData = new FormData();
+    formData.append('email', email);
+    return this.http.put<any>(`${this.apiUrl}/user/checkEmail`, formData);
+  }
+
+  checkNickanme(nickname: string): Observable<any>{
+    var formData = new FormData();
+    formData.append('nickname', nickname);
+    return this.http.put<any>(`${this.apiUrl}/user/checkNickname`, formData);
   }
 
   logout(){

@@ -61,6 +61,7 @@ class Word {
     public function setOrigin(string $_origin): void { $this->origin = $_origin; }
 
     public function getCategories(): array { return $this->categories; }
+    public function setCategories($_categories): void { $this->categories = $_categories; }
     public function addCategory($_category): void { $this->categories[] = $_category; }
 
     public function getDateSubmitted() { return $this->dateSubmitted; }

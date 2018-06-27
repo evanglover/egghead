@@ -42,7 +42,7 @@ class WordGetHandler implements RequestHandlerInterface
             'id' => $wordDoc->getId(),
             'user' => [
                 'id' => $userDoc->getId(),
-                'name' => $userDoc->getFirst() . ' ' . $userDoc->getLast(),
+                'name' => $userDoc->getNickname(),
                 'score' => $userDoc->getScore()
             ],
             'term' => $wordDoc->getTerm(),
@@ -50,9 +50,7 @@ class WordGetHandler implements RequestHandlerInterface
             'definition' => $wordDoc->getDefinition(),
             'origin' => $wordDoc->getOrigin(),
             'categories' => $wordDoc->getCategories(),
-            'dateSubmitted' => $wordDoc->getDateSubmitted(),
-            'ups' => $wordDoc->getUps(),
-            'downs' => $wordDoc->getDowns()
+            'dateSubmitted' => $wordDoc->getDateSubmitted()
         ];
 
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Observable } from 'rxjs';
@@ -23,8 +23,8 @@ export class RegisterComponent implements OnChanges {
   	private auth: AuthService,
   	private fb: FormBuilder
   	) {
+      this.createForm();
   		this.getFactions();
-  		this.createForm();
   	 }
 
   getFactions(){
@@ -34,14 +34,13 @@ export class RegisterComponent implements OnChanges {
 
   createForm() {
   	this.registerForm = this.fb.group({
-  		email: ['', [Validators.required, Validators.email]],
-  		nickname: ['', Validators.required],
+  		email: ['', [Validators.required, Validators.email], this.serverEmailValidator.bind(this)],
+  		nickname: ['', Validators.required, this.serverNicknameValidator],
   		faction: ['', Validators.required],
   		description: '',
   		password: ['', Validators.required],
-  		verifyPassword: ['', Validators.required]
-  	},
-  	{ updateOn: 'touch' });
+  		verifyPassword: ['', [Validators.required,this.passwordMatchValidator('password')]]
+  	});
   }
 
   ngOnChanges(){
@@ -62,8 +61,75 @@ export class RegisterComponent implements OnChanges {
 	  		.subscribe(function(response){
 	  			console.log(response);
 	  		});
-	}
+	  }
   }
+
+  // custom validators
+  private emailTimeout;
+  private lastEmailVal;
+  serverEmailValidator() {
+    return function (c: FormControl) {
+      if(this.emailTimeout)
+        clearTimeout(this.emailTimeout);
+      return new Promise(resolve => {
+        if(this.lastEmailVal && c.value != this.lastEmailVal){
+          this.lastEmailVal = c.value;
+          this.emailTimeout = setTimeout(() => {
+            var result = this.auth.checkEmail(c.value);
+            console.log(result);
+            if(result.success){
+              resolve(null);
+            } else {
+              if(result.message == "invalid email"){
+                 resolve({'invalidEmail': true});
+              } else if(result.message == "user already exists") {
+                 resolve({'userexists': true});
+              } else {
+                resolve(null);
+              }
+            }
+          }, 300);
+        }
+      });
+    }
+  }
+
+  // custom validators
+  private nicknameTimeout;
+  private lastnicknameVal;
+  serverNicknameValidator() {
+    return function (c: FormControl) {
+      if(this.nicknameTimeout)
+        clearTimeout(this.nicknameTimeout);
+      if(this.lastEmailVal && c.value != this.lastNicknameVal){
+        this.lastNicknameVal = c.value;
+        this.emailTimeout = setTimeout(() => {
+          var result = this.auth.checkNickname(c.value);
+          if(result.success){
+            return null;
+          } else {
+            if(result.message == "nickname is taken") {
+               return {'nicknameTaken': true};
+            } else {
+              return null;
+            }
+          }
+        }, 300);
+      }
+    }
+  }
+
+  // custom validators
+  passwordMatchValidator(ocs: string) {
+	  return function (c: FormControl) {
+      if(c.parent){
+        var oc = c.parent.get(ocs) as FormControl;
+        return oc.value === c.value ? null : {'mismatch': true};
+      } else {
+        return null;
+      }
+    }
+	}
 
   // Form getters
   get email() { return this.registerForm.get('email'); }

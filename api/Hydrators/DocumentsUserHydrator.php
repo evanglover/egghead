@@ -69,42 +69,16 @@ class DocumentsUserHydrator implements HydratorInterface
         }
 
         /** @Field(type="string") */
-        if (isset($data['first']) || (! empty($this->class->fieldMappings['first']['nullable']) && array_key_exists('first', $data))) {
-            $value = $data['first'];
+        if (isset($data['nickname']) || (! empty($this->class->fieldMappings['nickname']['nullable']) && array_key_exists('nickname', $data))) {
+            $value = $data['nickname'];
             if ($value !== null) {
-                $typeIdentifier = $this->class->fieldMappings['first']['type'];
+                $typeIdentifier = $this->class->fieldMappings['nickname']['type'];
                 $return = (string) $value;
             } else {
                 $return = null;
             }
-            $this->class->reflFields['first']->setValue($document, $return);
-            $hydratedData['first'] = $return;
-        }
-
-        /** @Field(type="string") */
-        if (isset($data['last']) || (! empty($this->class->fieldMappings['last']['nullable']) && array_key_exists('last', $data))) {
-            $value = $data['last'];
-            if ($value !== null) {
-                $typeIdentifier = $this->class->fieldMappings['last']['type'];
-                $return = (string) $value;
-            } else {
-                $return = null;
-            }
-            $this->class->reflFields['last']->setValue($document, $return);
-            $hydratedData['last'] = $return;
-        }
-
-        /** @Field(type="collection") */
-        if (isset($data['nicknames']) || (! empty($this->class->fieldMappings['nicknames']['nullable']) && array_key_exists('nicknames', $data))) {
-            $value = $data['nicknames'];
-            if ($value !== null) {
-                $typeIdentifier = $this->class->fieldMappings['nicknames']['type'];
-                $return = $value;
-            } else {
-                $return = null;
-            }
-            $this->class->reflFields['nicknames']->setValue($document, $return);
-            $hydratedData['nicknames'] = $return;
+            $this->class->reflFields['nickname']->setValue($document, $return);
+            $hydratedData['nickname'] = $return;
         }
 
         /** @Field(type="string") */

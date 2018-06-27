@@ -23,31 +23,31 @@ class CheckHandler implements RequestHandlerInterface
     {
     	
 
-    	// $dm = $GLOBALS['odmDM'];
+    	$dm = $GLOBALS['odmDM'];
 
-    	// $user = new User();
-    	// $user = $dm->find('Documents\User', "5b1dad0725b69685f9004c97");
+    	$user = new User();
+    	$user = $dm->find('Documents\User', "5b304e3825b6963938003fde");
     	// $user->setName("Joe Schmoe");
     	// $user->setDateCreated(new DateTime());
     	// $user->setDescription("This is my super cool description");
 
-    	// $word = new Word();
+    	$word = new Word();
     	
     	// $word = $dm->find('Documents\Word', "5b1dad0725b69685f9004c96");
 
-    	// $word->setUser($user);
-    	// $word->setTerm("BBB");
-    	// $word->setWordClass("noun");
-    	// $word->setDefinition("BBB - 1");
-    	// $word->setOrigin("The Test Realm");
-    	// $word->setCategories(array("C1","C2","C3"));
-    	// $word->setDateSubmitted(new DateTime());
+    	$word->setUser($user);
+    	$word->setTerm("ABC");
+    	$word->setWordClass("noun");
+    	$word->setDefinition("ABC - 1");
+    	$word->setOrigin("The Test Realm");
+    	$word->setCategories(array("C1","C2","C3"));
+    	$word->setDateSubmitted(new DateTime());
 
-    	// $user->addWord($word);
+    	$user->addWord($word);
 
-    	// $dm->persist($word);
-    	// $dm->persist($user);
-    	// $dm->flush();
+    	$dm->persist($word);
+    	//$dm->persist($user);
+    	$dm->flush();
 
         $response = "No DM";
         if(isset($dm)){
@@ -58,7 +58,8 @@ class CheckHandler implements RequestHandlerInterface
         // $cookieHeader = ['Set-Cookie' => 'token=' . $token . '; HttpOnly'];
         // $response = new JsonResponse($_COOKIE,200,$cookieHeader);
         
-        $response = new JsonResponse(session_get_cookie_params());
+        // $response = new JsonResponse(session_get_cookie_params());
+        $response = new JsonResponse($response);
         return $response;
     }
 }
